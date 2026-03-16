@@ -1,20 +1,33 @@
 class Solution {
 public:
-    using ll = long long;
-    long long countStableSubarrays(vector<int>& a) {
-        ll n = a.size(), res = 0, pre = 0;
-        unordered_map<ll, unordered_map<ll, ll>> mpp;
+    long long countStableSubarrays(vector<int>& capacity) {
 
-        for (int i = 0; i < n; i++) {
-            if (mpp.count(a[i]) and mpp[a[i]].count(pre - a[i])) {
-                res += mpp[a[i]][pre - a[i]];
+        int n = capacity.size();
+        vector<long long> pref(n);
+
+        pref[0] = capacity[0];
+        for(int i = 1; i < n; i++)
+            pref[i] = pref[i-1] + capacity[i];
+
+        map<int, map<long long,int>> mpp;
+        long long ans = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            if(i >= 2) {
+                int j = i - 2;
+                mpp[capacity[j]][pref[j]]++;
             }
-            pre += a[i];
-            mpp[a[i]][pre]++;
-            if (i > 0 && a[i] == 0 && a[i - 1] == 0) {
-                res--;
+
+            long long need = pref[i] - 2LL * capacity[i];
+
+            if(mpp.count(capacity[i]) &&
+               mpp[capacity[i]].count(need))
+            {
+                ans += mpp[capacity[i]][need];
             }
         }
-        return res;
+
+        return ans;
     }
 };
