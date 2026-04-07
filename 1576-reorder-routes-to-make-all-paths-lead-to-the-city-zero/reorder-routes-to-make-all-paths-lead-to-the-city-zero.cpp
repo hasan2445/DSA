@@ -5,8 +5,8 @@ public:
         
         for(auto &e : connections) {
             int u = e[0], v = e[1];
-            adj[u].push_back({v, 1}); // wrong direction
-            adj[v].push_back({u, 0}); // correct
+            adj[u].push_back({v, 1}); 
+            adj[v].push_back({u, 0}); 
         }
         
         vector<int> vis(n, 0);
