@@ -1,12 +1,12 @@
 class Solution {
 public:
     int minPartitions(string n) {
-        int mx=0;
+        char mx='0';
         for(auto &ch:n)
         {
             if(ch=='9') return 9;
-            mx=max(mx,ch-'0');
+            mx=max(mx,ch);
         }
-        return mx;
+        return mx-'0';
     }
 };
