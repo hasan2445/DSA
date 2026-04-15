@@ -2,8 +2,9 @@ class Solution {
 public:
     int dx[4]={-1,0,1,0};
     int dy[4]={0,1,0,-1};
-    int  helper(vector<vector<int>>&mat,int n)
+    int  helper(vector<vector<int>>&mat)
     {
+        int n=mat.size();
         vector<vector<int>>visited(n,vector<int>(n,0));
        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> q;
 
@@ -49,7 +50,7 @@ public:
         return mx;
     }
     int swimInWater(vector<vector<int>>& grid) {
-        return helper(grid,grid.size());
+        return helper(grid);
         
     }
 };
