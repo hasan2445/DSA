@@ -19,7 +19,7 @@ public:
             pq.pop();
             auto pr=f.first;
             int node=f.second;
-            if(end==node) return pr;
+            //if(end==node) return pr;
             if(dist[node]>pr) continue;
             
             for(auto nbr:adj[node])
