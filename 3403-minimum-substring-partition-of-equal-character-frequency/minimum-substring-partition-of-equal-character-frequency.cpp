@@ -24,7 +24,7 @@ public:
         vector<int>dp(n+1,1e9);
         dp[0]=0;
         dp[1]=1;
-        for(int i=2;i<=n;i++)
+        for(int i=1;i<=n;i++)
         {
             int j=i;
             int freq[26]={0};
