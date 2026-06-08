@@ -22,7 +22,7 @@ public:
                     
                     if(s[i] == s[j]) {
                         if(len == 2) {
-                            dp[i][j][x] = max(dp[i][j][x], 2);
+                            dp[i][j][x] =  2;
                         } else {
                             dp[i][j][x] = max(dp[i][j][x], 2 + dp[i + 1][j - 1][x]);
                             ans = len;
