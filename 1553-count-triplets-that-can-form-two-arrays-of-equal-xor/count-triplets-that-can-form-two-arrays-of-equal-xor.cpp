@@ -1,6 +1,6 @@
 class Solution {
 public:
-        int countTriplets(vector<int>& A) {
+    int countTriplets(vector<int>& A) {
         A.insert(A.begin(), 0);
         int n = A.size(), res = 0;
         for (int i = 1; i < n; ++i)
