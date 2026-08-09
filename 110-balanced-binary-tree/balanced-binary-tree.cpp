@@ -10,16 +10,16 @@
  * };
  */
 class Solution {
-
 public:
-    int height(TreeNode* root)
+    int helper(TreeNode* root)
     {
         if(root==NULL) return 0;
-        return 1+max(height(root->left),height(root->right));
+        return 1+max(helper(root->left),helper(root->right)) ;
+        
     }
     bool isBalanced(TreeNode* root) {
         if(root==NULL) return true;
-        if(abs(height(root->left)-height(root->right))>1) return false;
+        if(abs(helper(root->right)-helper(root->left))>1) return false;
         return isBalanced(root->right) && isBalanced(root->left);
     }
 };
