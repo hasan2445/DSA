@@ -12,44 +12,32 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        
-        map<int, vector<pair<int,int>>> mp; // hd -> {level, value}
-        queue<pair<TreeNode*, pair<int,int>>> q; // node -> {hd, level}
-
-        q.push({root, {0, 0}});
-
-        while(!q.empty()) {
-            auto it = q.front();
+        map<int,multiset<pair<int,int>>>mp;
+        queue<pair<TreeNode*, pair<int,int>>> q;
+        q.push({root,{0,0}});
+        while(!q.empty())
+        {
+            auto f=q.front();
             q.pop();
+            int val=f.first->val;
+            int hd=f.second.first;
+            int lvl=f.second.second;
+            mp[hd].insert({lvl,val});
+            if(f.first->left) q.push({f.first->left,{hd-1,lvl+1}});
+            if(f.first->right) q.push({f.first->right,{hd+1,lvl+1}});
 
-            TreeNode* node = it.first;
-            int hd = it.second.first;
-            int lvl = it.second.second;
-
-            mp[hd].push_back({lvl, node->val});
-
-            if(node->left)  q.push({node->left, {hd - 1, lvl + 1}});
-            if(node->right) q.push({node->right, {hd + 1, lvl + 1}});
         }
-
-        vector<vector<int>> ans;
-
-        for(auto &it : mp) {
-            auto vec = it.second;
-
-            sort(vec.begin(), vec.end(), [](auto &a, auto &b){
-                if(a.first == b.first) return a.second < b.second; // value
-                return a.first < b.first; // level
-            });
-
-            vector<int> col;
-            for(auto &p : vec) {
-                col.push_back(p.second);
+        vector<vector<int>>ans;
+        for(auto it:mp)
+        {
+            auto v=it.second;
+            vector<int>x;
+            for(auto i:v)
+            {
+                x.push_back(i.second);
             }
-
-            ans.push_back(col);
+            ans.push_back(x);
         }
-
         return ans;
     }
 };
