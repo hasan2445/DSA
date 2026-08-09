@@ -9,71 +9,57 @@
  */
 class Solution {
 public:
-    void par(TreeNode* root,unordered_map<TreeNode*, TreeNode*>& parent)
+    void parent(TreeNode* root,map<TreeNode*,TreeNode*>&par)
     {
-        if(root->left==NULL && root->right==NULL) return;
-         if(root->left)
-        {
-            parent[root->left]=root;
-            par(root->left,parent);
-        }
-        if(root->right)
-        {
-            parent[root->right]=root;
-            par(root->right,parent);
-        }
+        if(root==NULL) return;
+        if(root->left)  par[root->left]=root;
+        if(root->right) par[root->right]=root;
+        parent(root->left,par);
+        parent(root->right,par);
     }
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        queue<TreeNode*>q;
+        map<TreeNode*,TreeNode*>par;
         if(root==NULL) return {};
-        unordered_map<TreeNode*, TreeNode*> parent;
-        par(root,parent);
-        int x=0;
+        parent(root,par);
+        set<TreeNode*>s;
+        queue<TreeNode*>q;
+        s.insert(target);
         vector<int>ans;
+        int x=0;
         q.push(target);
-        unordered_set<TreeNode*> vis; 
-        vis.insert(target);
         while(!q.empty())
         {
+            if(x>k) break;
             int sz=q.size();
-            if(x==k)
-            {
-                break;
-            }
             while(sz--)
             {
+                
                 auto f=q.front();
                 q.pop();
-               if(f->left && !vis.count(f->left)) 
-               {
-                q.push(f->left);
-                vis.insert(f->left);
-               }
-               if(f->right && !vis.count(f->right))
-               {
                 
-                q.push(f->right);
-                vis.insert(f->right);
-               
-
-               } 
-               if(parent.find(f)!=parent.end() && !vis.count(parent[f]) )
-               {
-                 q.push(parent[f]);
-                 vis.insert(parent[f]);
-               }
-
+                if(x==k)
+                 {
+                  ans.push_back(f->val);
+                }
+                
+                if(f->left && s.find(f->left)==s.end())
+                {
+                    q.push(f->left);
+                    s.insert(f->left);
+                }
+                if(f->right && s.find(f->right)==s.end())
+                {
+                    q.push(f->right);
+                    s.insert(f->right);
+                }
+                if(par.find(f)!=par.end() && s.find(par[f])==s.end())
+                {
+                    s.insert(par[f]);
+                    q.push(par[f]);
+                }
             }
             x++;
         }
-        while(!q.empty())
-        {
-            auto f=q.front();
-            ans.push_back(f->val);
-            q.pop();
-        }
-        return ans;
-
-        
+      return ans;
     }
 };
