@@ -2,7 +2,7 @@ class Solution {
 public:
     int dx[4]={0,1,0,-1};
     int dy[4]={-1,0,1,0};
-    void dfs(vector<vector<int>>&image,int sr,int sc,int org,int color,int m,int n)
+    void dfs(vector<vector<int>>&image,int &sr,int &sc,int &org,int &color,int &m,int &n)
     {
         image[sr][sc]=color;
         for(int i=0;i<4;i++)
