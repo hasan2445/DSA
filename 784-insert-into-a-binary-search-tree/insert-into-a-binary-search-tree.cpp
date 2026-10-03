@@ -11,15 +11,13 @@
  */
 class Solution {
 public:
-    TreeNode* insertIntoBST(TreeNode* root, int x) {
-        if(root == NULL)
-            return new TreeNode(x);
-
-        if(x < root->val)
-            root->left = insertIntoBST(root->left, x);
-        else
-            root->right = insertIntoBST(root->right, x);
-
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if(root==NULL) return new TreeNode(val);
+        else if(root->val>val)
+        {
+            root->left=insertIntoBST(root->left,val);
+        }
+        else root->right=insertIntoBST(root->right,val);
         return root;
     }
 };
