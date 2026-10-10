@@ -1,38 +1,33 @@
 class Solution {
 public:
     int countSubstrings(string s) {
-        int n=s.size();
-        s.insert(s.begin(),'0');
-        vector<vector<int>>dp(n+1,vector<int>(n+1,0));
-        int count=0;
-        for(int i=1;i<=n;i++)
+      int n=s.size();
+      s=" "+s;
+      vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+      int cnt=0;
+      for(int i=1;i<=n;i++)
+      {
+        dp[i][i]=1;
+        cnt++;
+      }
+      for(int len=2;len<=n;len++)
+      {
+        for(int i=1;i+len-1<=n;i++)
         {
-            dp[i][i]=1;
-            count++;
-        }
-        for(int len=2;len<=n;len++)
-        {
-            for(int i=1;i+len-1<=n;i++)
+            int j=i+len-1;
+            if(len==2 && s[i]==s[j])
             {
-                int j=i+len-1;
-                if(s[i]==s[j])
-                {
-                    if(len==2)
-                    {
-                        dp[i][j]=1;
-                        count++;
-                        continue;
-                    }
-                    if(dp[i+1][j-1]==1)
-                    {
-                        dp[i][j]=1;
-                        count++;
-                    }
-                }
-
+                dp[i][j]=1;
+                cnt++;
+                continue;
+            }
+            if(s[i]==s[j])
+            {
+                dp[i][j]=dp[i+1][j-1];
+                if(dp[i][j]) cnt++;
             }
         }
-        return count;
-
+      }  
+      return cnt;
     }
 };
