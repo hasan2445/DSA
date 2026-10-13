@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool can(vector<int>&time,int trip,long long mid)
+    bool can(vector<int>&time,int &trip,long long &mid)
     {
         long long cnt=0;
         for(int i=0;i<time.size();i++)
