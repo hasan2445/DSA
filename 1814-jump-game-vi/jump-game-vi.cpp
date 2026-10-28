@@ -10,7 +10,6 @@ public:
         pq.push({dp[0], 0});
 
         for (int i = 1; i < n; i++) {
-            // Remove indices outside the valid window
             while (!pq.empty() && pq.top().second < i - k) {
                 pq.pop();
             }
