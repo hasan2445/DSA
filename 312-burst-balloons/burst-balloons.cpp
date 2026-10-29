@@ -13,7 +13,7 @@ public:
                 for(int k=i;k<=j;k++)
                 {
                     int cost=nums[k]*nums[i-1]*nums[j+1];
-                    dp[i][j]=max(dp[i][j],dp[i][k-1]+dp[k+1][j]+cost);
+                    dp[i][j]=max(dp[i][j],cost+dp[i][k-1]+dp[k+1][j]);
                 }
             }
         }
